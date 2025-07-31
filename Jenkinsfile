@@ -43,10 +43,9 @@ pipeline {
  
         stage("Deploy to Kubernetes") {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+            		bat 'kubectl config use-context docker-desktop'
                     bat "kubectl apply -f deploy.yml"
                     bat "kubectl apply -f service.yml"
-                }
             }
         }
     }
