@@ -1,0 +1,33 @@
+version: '3.0'
+services:
+ mysql: mysql:8
+ container_name: mysql-db
+ port:
+  - "3306:3306"
+ environment:
+      MYSQL_DATABASE: DemoDB
+      MYSQL_ROOT_PASSWORD: tiger
+ volumes:
+  - db_data:/var/lib/mysql
+ networks:
+  - app-network
+
+employee-app:
+ build:
+ container_name: employee-app
+ depends_on:
+  - mysql
+ ports:
+  - "9091:9091"
+ networks:
+  - app-network
+ environment:
+  SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/DemoDB
+  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: tiger
+  SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  SPRING_JPA_SHOW_SQL: "true"
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+  SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+  SPRING_APPLICATION_NAME: employee
+  SERVER_PORT: 9091

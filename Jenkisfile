@@ -1,0 +1,60 @@
+pipeline {
+	agent any
+	
+	environment{
+		DOCKER_IMAGE = "santrajrakesh/employee-app"
+		IMAGE_TAG = "1"
+	}
+	
+	tools{
+		maven 'MAVEN_HOME'
+		
+	}
+	
+	stages{
+		stage("git clone"){
+			steps{
+				git "https://github.com/rakeshsantraj/EmployeeManagementService.git"
+			}
+		}
+		stage("build app"){
+			steps{
+				sh "mvn clean install -DskipTests"
+			}
+		}
+		stage("Building docker image"){
+			steps{
+				script{
+					sh "docker build -t $DOCKER_IMAGE:$IMAGE_TAG ."
+				}
+			}
+		}
+		stage('stage Push image Docker-hub') {
+			steps{
+				withCredentials([usernamePassword(credentialsId: 'Docker-Hub-credential', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+					sh '''
+						echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+						docker push $DOCKER_IMAGE:$IMAGE_TAG
+					'''
+				}
+			}
+		}
+		
+		stage("Deploy to Kubernates"){
+			steps {
+				sh 'kubectl apply -f deploy.yml'
+				sh 'kubectl apply -f service.yml'
+			}
+		}
+		
+		post("Deploy to Kubernates"){
+			success {
+				echo "Deployment to K8s successful"
+			}
+			failure{
+				echo "Deployment to K8s successful"
+			}
+		}
+	}
+	
+}
