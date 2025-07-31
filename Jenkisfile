@@ -47,13 +47,8 @@ pipeline {
 			}
 		}
 		
-		post("Deploy to Kubernates"){
-			success {
-				echo "Deployment to K8s successful"
-			}
-			failure{
-				echo "Deployment to K8s successful"
-			}
+		stage("Deploy to Kubernates"){
+			
 		}
 	}
 	
