@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
  name: my-app
 spec:
- replics: 2
+ replicas: 2
  selector:
-  matchlabels:
+  matchLabels:
    app: my-app
  template:
   metadata:
    labels:
     app: my-app
   spec:
-   cpntainers:
+   containers:
    - name: myapp-container
-     image: santrajrakesh/employee-app
+     image: santrajrakesh/employee-app:29
      ports:
      - containerPort: 9092
   
