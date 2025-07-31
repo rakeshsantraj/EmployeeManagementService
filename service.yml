@@ -8,5 +8,6 @@ spec:
   app: my-app
  ports:
   - protocol: TCP
+    nodePort: 30080
     port: 90
     targetPort: 9092
