@@ -8,7 +8,7 @@ pipeline {
 	
 	tools{
 		maven 'MAVEN_HOME'
-		
+		git 'Default'
 	}
 	
 	stages{
