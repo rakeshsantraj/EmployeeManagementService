@@ -14,7 +14,7 @@ pipeline {
 	stages{
 		stage("git clone"){
 			steps{
-				git "https://github.com/rakeshsantraj/EmployeeManagementService.git"
+				git branch:"main", url:"https://github.com/rakeshsantraj/EmployeeManagementService.git"
 			}
 		}
 		stage("build app"){
