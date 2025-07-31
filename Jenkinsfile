@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "santrajrakesh/employee-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
+        KUBECONFIG = 'C:\\Users\\rakes\\.kube\\config'
     }
  
     tools {
