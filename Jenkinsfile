@@ -14,7 +14,6 @@ pipeline {
         stage("Git Clone") {
             steps {
                 git branch: "main", url: "https://github.com/rakeshsantraj/EmployeeManagementService.git"
-                bat 'ls -al'
                 bat 'git status'
             }
         }
