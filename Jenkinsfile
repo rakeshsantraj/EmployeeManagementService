@@ -2,7 +2,7 @@ pipeline {
     agent any
  
     environment {
-        DOCKER_IMAGE = "santrajrakebat/employee-app"
+        DOCKER_IMAGE = "santrajrakesh/employee-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
  
@@ -13,8 +13,7 @@ pipeline {
     stages {
         stage("Git Clone") {
             steps {
-                git branch: "main", url: "https://github.com/rakebatsantraj/EmployeeManagementService.git",
-                credentialsId: 'GITHUBCRED'
+                git branch: "main", url: "https://github.com/rakeshsantraj/EmployeeManagementService.git"
                 bat 'ls -al'
                 bat 'git status'
             }
@@ -32,12 +31,12 @@ pipeline {
             }
         }
  
-        stage("Pubat Image to DockerHub") {
+        stage("Push Image to DockerHub") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'Docker-Hub-credential', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     bat """
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker pubat ${DOCKER_IMAGE}:${IMAGE_TAG}
+                        docker push ${DOCKER_IMAGE}:${IMAGE_TAG}
                     """
                 }
             }
