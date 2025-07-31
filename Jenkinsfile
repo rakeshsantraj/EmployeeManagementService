@@ -2,7 +2,7 @@ pipeline {
     agent any
  
     environment {
-        DOCKER_IMAGE = "santrajrakesh/employee-app"
+        DOCKER_IMAGE = "santrajrakebat/employee-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
  
@@ -13,30 +13,30 @@ pipeline {
     stages {
         stage("Git Clone") {
             steps {
-                git branch: "main", url: "https://github.com/rakeshsantraj/EmployeeManagementService.git"
-                sh 'ls -al'
-                sh 'git status'
+                git branch: "main", url: "https://github.com/rakebatsantraj/EmployeeManagementService.git"
+                bat 'ls -al'
+                bat 'git status'
             }
         }
  
         stage("Build App") {
             steps {
-                sh "mvn clean install -DskipTests"
+                bat "mvn clean install -DskipTests"
             }
         }
  
         stage("Build Docker Image") {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG} ."
+                bat "docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG} ."
             }
         }
  
-        stage("Push Image to DockerHub") {
+        stage("Pubat Image to DockerHub") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'Docker-Hub-credential', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh """
+                    bat """
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push ${DOCKER_IMAGE}:${IMAGE_TAG}
+                        docker pubat ${DOCKER_IMAGE}:${IMAGE_TAG}
                     """
                 }
             }
@@ -45,8 +45,8 @@ pipeline {
         stage("Deploy to Kubernetes") {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh "kubectl apply -f deploy.yml"
-                    sh "kubectl apply -f service.yml"
+                    bat "kubectl apply -f deploy.yml"
+                    bat "kubectl apply -f service.yml"
                 }
             }
         }
