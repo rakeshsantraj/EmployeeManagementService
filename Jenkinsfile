@@ -13,7 +13,8 @@ pipeline {
     stages {
         stage("Git Clone") {
             steps {
-                git branch: "main", url: "https://github.com/rakebatsantraj/EmployeeManagementService.git"
+                git branch: "main", url: "https://github.com/rakebatsantraj/EmployeeManagementService.git",
+                credentialsId: 'GITHUBCRED'
                 bat 'ls -al'
                 bat 'git status'
             }
