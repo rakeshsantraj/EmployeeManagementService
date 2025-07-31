@@ -14,7 +14,7 @@ spec:
   spec:
    containers:
    - name: myapp-container
-     image: santrajrakesh/employee-app:29
+     image: santrajrakesh/employee-app:30
      ports:
      - containerPort: 9092
   
