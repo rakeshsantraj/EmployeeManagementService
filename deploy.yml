@@ -18,10 +18,10 @@ spec:
         - name: myapp-container
           image: santrajrakesh/employee-app:latest
           ports:
-            - containerPort: 9092
+            - containerPort: 9093
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://127.0.0.1:3306/demodb
+              value: jdbc:mysql://mysql-service-name:3306/demodb
             - name: SPRING_DATASOURCE_USERNAME
               value: root
             - name: SPRING_DATASOURCE_PASSWORD
