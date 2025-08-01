@@ -1,35 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: my-app
-spec:
- replicas: 2
- selector:
-  matchLabels:
-   app: my-app
- template:
-  metadata:
-   labels:
+  name: my-app
+  labels:
     app: my-app
-  spec:
-   containers:
-   - name: myapp-container
-     image: santrajrakesh/employee-app:latest
-     ports:
-     - containerPort: 9092
-     env:
-      - name: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://localhost:3306/test
-      - name: SPRING_DATASOURCE_USERNAME
-        value: root
-      - name: SPRING_DATASOURCE_PASSWORD
-        value: tiger
-      - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
-        value: org.hibernate.dialect.MySQL8Dialect
-      - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
-        value: com.mysql.cj.jdbc.Driver
-      - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-        value: update
-      - name: SPRING_JPA_SHOW_SQL
-        value: true
-  
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: myapp-container
+          image: santrajrakesh/employee-app:latest
+          ports:
+            - containerPort: 9092
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://localhost:3306/demodb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: tiger
+            - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+              value: org.hibernate.dialect.MySQL8Dialect
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              value: com.mysql.cj.jdbc.Driver
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
+            - name: SPRING_JPA_SHOW_SQL
+              value: "true"
