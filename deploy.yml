@@ -35,4 +35,4 @@ spec:
             - name: SPRING_JPA_SHOW_SQL
               value: "true"
             - name: SERVER_PORT
-              value: 9093
+              value: "9093"
