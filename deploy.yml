@@ -21,7 +21,7 @@ spec:
             - containerPort: 9092
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://localhost:3306/demodb
+              value: jdbc:mysql://127.0.0.1:3306/demodb
             - name: SPRING_DATASOURCE_USERNAME
               value: root
             - name: SPRING_DATASOURCE_PASSWORD
