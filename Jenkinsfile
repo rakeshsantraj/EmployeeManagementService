@@ -45,8 +45,6 @@ pipeline {
         stage("Deploy to Kubernetes") {
             steps {
             		bat 'kubectl config use-context docker-desktop'
-            		bat 'kubectl apply -f mysql-deployment.yml'
-            		bat 'kubectl apply -f mysql-service.yml'
                     bat "kubectl apply -f deploy.yml"
                     bat "kubectl apply -f service.yml"
             }
