@@ -42,7 +42,7 @@ pipeline {
             }
         }
  
-        stage("Deploy to Kubernetes") {
+        stage("Deploy to Kubernetes ") {
             steps {
             		bat 'kubectl config use-context docker-desktop'
                     bat "kubectl apply -f deploy.yml"
